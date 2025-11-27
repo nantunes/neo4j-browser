@@ -33,11 +33,14 @@ export const isNonSupportedRoutingSchemeError = (e: {
 export const isNonRoutingScheme = (url = '') =>
   typeof url === 'string' && url.startsWith(`${BOLT_DIRECT_SCHEME}://`)
 
-export const toNonRoutingScheme = (url: string) =>
-  typeof url === 'string' &&
-  `${BOLT_DIRECT_SCHEME}${getSchemeFlag(url)}://${stripQueryString(
+export const toNonRoutingScheme = (url: string) => {
+  if (typeof url !== 'string') return false
+  const scheme = getScheme(url)
+  const baseScheme = scheme.startsWith('age') ? 'age' : BOLT_DIRECT_SCHEME
+  return `${baseScheme}${getSchemeFlag(url)}://${stripQueryString(
     stripScheme(url)
   )}`
+}
 
 export const getScheme = (url: string) => {
   if (!url) {

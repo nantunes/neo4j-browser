@@ -36,8 +36,8 @@ export const WEB = 'WEB'
 export const CLOUD = 'CLOUD'
 export type Environment = typeof DESKTOP | typeof WEB | typeof CLOUD
 
-export const SECURE_SCHEMES = ['neo4j+s', 'bolt+s']
-export const INSECURE_SCHEMES = ['neo4j', 'bolt']
+export const SECURE_SCHEMES = ['neo4j+s', 'bolt+s', 'age+wss']
+export const INSECURE_SCHEMES = ['neo4j', 'bolt', 'age+ws']
 export const CLOUD_SCHEMES = ['neo4j+s']
 
 // Selectors
@@ -66,8 +66,8 @@ export const getAllowedBoltSchemes = (
       ? SECURE_SCHEMES
       : [...SECURE_SCHEMES, ...INSECURE_SCHEMES]
     : (hostedUrl || '').startsWith('https')
-    ? SECURE_SCHEMES
-    : INSECURE_SCHEMES
+      ? SECURE_SCHEMES
+      : INSECURE_SCHEMES
 }
 // currently only Desktop specific
 export const isRelateAvailable = (state: GlobalState): boolean =>

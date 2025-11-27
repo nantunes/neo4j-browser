@@ -174,6 +174,9 @@ export default function ConnectForm(props: ConnectFormProps): JSX.Element {
   }
 
   async function reachabilityCheck(url: string) {
+    if (getScheme(url).startsWith('age+ws')) {
+      return setReachablityState('no_attempt')
+    }
     setReachablityState('loading')
     const res = await httpReachabilityCheck(`//${stripScheme(url)}`)
 
@@ -218,7 +221,9 @@ export default function ConnectForm(props: ConnectFormProps): JSX.Element {
         hasSecureSchemes ? '+s' : ''
       }:// for a routed connection (Aura, Cluster), bolt${
         hasSecureSchemes ? '+s' : ''
-      }:// for a direct connection to a single instance.`
+      }:// for a direct connection to a single instance, or age${
+        hasSecureSchemes ? '+s' : ''
+      }:// (or age+ws://) for Apache AGE.`
     : ''
 
   const { SSOError, SSOProviders, SSOLoading } = props

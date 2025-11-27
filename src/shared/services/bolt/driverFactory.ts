@@ -32,6 +32,10 @@ export const createDriverOrFailFn = (
   // the object, so not sure what's going on.
   const spreadOpts = { ...opts, userAgent: `neo4j-browser/v${version}` }
   try {
+    if (url.startsWith('age+ws://') || url.startsWith('age+wss://')) {
+      const { AgeDriver } = require('shared/services/age/AgeDriver')
+      return new AgeDriver(url, auth, spreadOpts)
+    }
     const res = neo4j.driver(url, auth, spreadOpts)
     return res
   } catch (e) {

@@ -26,7 +26,13 @@ const helpers = require('./webpack-helpers')
 module.exports = {
   mode: helpers.isProduction ? 'production' : 'development',
   node: {
-    fs: 'empty'
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty',
+    child_process: 'empty',
+    'pg-native': 'empty',
+    'cloudflare:sockets': 'empty'
   },
   entry: [path.resolve(helpers.browserPath, 'index.tsx')],
   output: {
@@ -57,7 +63,9 @@ module.exports = {
       'neo4j-arc/cypher-language-support$': path.resolve(
         helpers.sourcePath,
         'neo4j-arc/cypher-language-support'
-      )
+      ),
+      'cloudflare:sockets': path.resolve(__dirname, 'empty.js'),
+      'pg-native': path.resolve(__dirname, 'empty.js')
     },
     extensions: ['.tsx', '.ts', '.js']
   },
@@ -99,6 +107,12 @@ module.exports = {
     host: '0.0.0.0',
     port: 8080,
     disableHostCheck: true,
-    hot: !helpers.isProduction
+    hot: !helpers.isProduction,
+    proxy: {
+      '/age-proxy': {
+        target: 'http://localhost:8081',
+        ws: true
+      }
+    }
   }
 }

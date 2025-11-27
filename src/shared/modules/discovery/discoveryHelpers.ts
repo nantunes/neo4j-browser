@@ -161,11 +161,12 @@ export async function getAndMergeDiscoveryData({
       )
     : Promise.resolve(null)
 
-  const discoveryConnectionHostPromise = dataFromConnection.host
-    ? fetchBrowserDiscoveryDataFromUrl(
-        boltToHttp(generateBoltUrlWithAllowedScheme(dataFromConnection.host))
-      )
-    : Promise.resolve(null)
+  const discoveryConnectionHostPromise =
+    dataFromConnection.host && !dataFromConnection.host.startsWith('age+ws')
+      ? fetchBrowserDiscoveryDataFromUrl(
+          boltToHttp(generateBoltUrlWithAllowedScheme(dataFromConnection.host))
+        )
+      : Promise.resolve(null)
 
   const discoveryUrlParamPromise = action.discoveryUrl
     ? fetchBrowserDiscoveryDataFromUrl(action.discoveryUrl)

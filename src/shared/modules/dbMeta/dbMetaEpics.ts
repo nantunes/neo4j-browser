@@ -137,10 +137,21 @@ async function databaseList(store: any) {
 }
 
 async function getLabelsAndTypes(store: any) {
-  const db = getCurrentDatabase(store.getState())
+  const state = store.getState()
+  const db = getCurrentDatabase(state)
+  let dbName: string | undefined = db ? db.name : getUseDb(state) || undefined
+
+  if (!dbName) {
+    const activeConnection = getActiveConnectionData(state)
+    dbName = activeConnection?.requestedUseDb
+  }
+
+  if (!dbName) {
+    dbName = getLastUseDb(state) || undefined
+  }
 
   // System or composite db, do nothing
-  if (db && isSystemOrCompositeDb(db)) {
+  if ((db && isSystemOrCompositeDb(db)) || dbName === SYSTEM_DB) {
     return
   }
 
@@ -149,7 +160,7 @@ async function getLabelsAndTypes(store: any) {
     const res = await bolt.backgroundWorkerlessRoutedRead(
       metaTypesQuery,
       {
-        useDb: db?.name
+        useDb: dbName
       },
       store
     )
