@@ -96,7 +96,7 @@ export class LegacySysInfoFrame extends Component<
         this.timer = setInterval(
           this.getSysInfo.bind(this),
           this.state.autoRefreshInterval * 1000
-        )
+        ) as unknown as number
       } else {
         clearInterval(this.timer)
       }

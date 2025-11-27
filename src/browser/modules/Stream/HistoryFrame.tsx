@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import React, { useEffect } from 'react'
+import { saveAs } from 'file-saver'
 import { withBus } from 'react-suber'
 
 import FrameBodyTemplate from '../Frame/FrameBodyTemplate'

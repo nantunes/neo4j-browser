@@ -132,7 +132,7 @@ export class QueriesFrame extends Component<
         this.timer = setInterval(
           this.getRunningQueries,
           this.state.autoRefreshInterval * 1000
-        )
+        ) as unknown as number
       } else {
         clearInterval(this.timer)
       }

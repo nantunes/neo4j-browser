@@ -123,7 +123,7 @@ export class SysInfoFrame extends Component<
         this.timer = setInterval(
           this.getSysInfo,
           this.state.autoRefreshInterval * 1000
-        )
+        ) as unknown as number
       } else {
         this.timer && clearInterval(this.timer)
       }

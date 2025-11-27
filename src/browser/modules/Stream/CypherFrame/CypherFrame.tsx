@@ -245,17 +245,18 @@ export class CypherFrame extends Component<CypherFrameProps, CypherFrameState> {
           <TableIcon />
         </CypherFrameButton>
       )}
-      {resultHasRows(this.props.request) && !resultIsError(this.props.request) && (
-        <CypherFrameButton
-          data-testid="cypherFrameSidebarAscii"
-          selected={this.state.openView === ViewTypes.TEXT}
-          onClick={() => {
-            this.changeView(ViewTypes.TEXT)
-          }}
-        >
-          <AsciiIcon />
-        </CypherFrameButton>
-      )}
+      {resultHasRows(this.props.request) &&
+        !resultIsError(this.props.request) && (
+          <CypherFrameButton
+            data-testid="cypherFrameSidebarAscii"
+            selected={this.state.openView === ViewTypes.TEXT}
+            onClick={() => {
+              this.changeView(ViewTypes.TEXT)
+            }}
+          >
+            <AsciiIcon />
+          </CypherFrameButton>
+        )}
       {resultHasPlan(this.props.request) && (
         <CypherFrameButton
           data-testid="cypherFrameSidebarPlan"
@@ -327,7 +328,7 @@ export class CypherFrame extends Component<CypherFrameProps, CypherFrameState> {
             maxRows={this.props.maxRows}
             result={result}
             updated={this.props.request.updated}
-            setAsciiMaxColWidth={asciiMaxColWidth =>
+            setAsciiMaxColWidth={(asciiMaxColWidth: number) =>
               this.setState({ asciiMaxColWidth })
             }
           />
@@ -387,7 +388,7 @@ export class CypherFrame extends Component<CypherFrameProps, CypherFrameState> {
             maxRows={this.props.maxRows}
             result={result}
             updated={this.props.request.updated}
-            setAsciiSetColWidth={asciiSetColWidth =>
+            setAsciiSetColWidth={(asciiSetColWidth: string) =>
               this.setState({ asciiSetColWidth })
             }
           />
