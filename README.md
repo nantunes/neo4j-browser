@@ -77,3 +77,16 @@ CYPRESS_BASE_URL=<url to reach the browser to test> (default http://localhost:80
 ```
 
 Example: `CYPRESS_E2E_TEST_ENV="local" CYPRESS_BASE_URL=http://localhost:30000 cypress open --env server=4.2`
+
+## Fork Information
+
+This repository is a fork of [neo4j-browser](https://github.com/neo4j/neo4j-browser) maintained by `nantunes`.
+
+### Changes
+- Added support for connecting to **Apache AGE** (Graph extension for PostgreSQL).
+
+### License
+This project is licensed under the [GNU General Public License v3.0](LICENSE).
+
+> [!IMPORTANT]
+> If you distribute this software (including the Docker image), you must comply with the terms of the GPLv3, which includes making the source code available to recipients.
